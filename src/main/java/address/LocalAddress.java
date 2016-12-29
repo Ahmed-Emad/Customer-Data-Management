@@ -2,7 +2,6 @@ package address;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -62,8 +61,8 @@ public class LocalAddress implements Address {
             connection = DriverManager.getConnection("jdbc:sqlite:customer_data_management.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
-//            statement.executeUpdate("INSERT INTO Account (first_name, last_name) "
-//                    + "VALUES('" + firstName + "', '" + lastName + "')");
+            statement.executeUpdate("INSERT INTO Address (address, city, state, account_id) "
+                    + "VALUES('" + address + "', '" + city + "', '" + state + "', " + accountId + ")");
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

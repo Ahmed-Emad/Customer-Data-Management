@@ -7,6 +7,9 @@ package address;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class RemoteAddress extends UnicastRemoteObject implements Address {
 
@@ -56,7 +59,23 @@ public class RemoteAddress extends UnicastRemoteObject implements Address {
 
     @Override
     public boolean save(int accountId) throws RemoteException {
-        return true;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:customer_data_management.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            statement.executeUpdate("INSERT INTO Address (address, city, state, account_id) "
+                    + "VALUES('" + address + "', '" + city + "', '" + state + "', " + accountId + ")");
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
     }
 
 }

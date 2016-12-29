@@ -1,6 +1,9 @@
 package credit;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by ahmadbarakat on 364 / 29 / 16.
@@ -54,7 +57,23 @@ public class LocalCredit implements Credit {
 
     @Override
     public boolean save(int accountId) {
-        return true;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:customer_data_management.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            statement.executeUpdate("INSERT INTO Credit (type, num, exp_date, account_id) "
+                    + "VALUES('" + type + "', '" + number + "', '" + expDate + "', " + accountId + ")");
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
     }
 
 }
