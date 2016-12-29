@@ -1,0 +1,42 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<GridPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="20" vgap="20">
+
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
+
+    <VBox alignment="CENTER"
+          GridPane.columnIndex="0"
+          GridPane.rowIndex="0"
+          GridPane.columnSpan="2">
+        <Label text="Welcome There"
+               fx:id="welcomeLabel"/>
+    </VBox>
+
+    <Label text="First Name:"
+           fx:id="firstNameLabel"
+           GridPane.columnIndex="0"
+           GridPane.rowIndex="1"/>
+
+    <TextField
+            fx:id="firstNameField"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="1"/>
+
+    <Label text="Last Name:"
+           fx:id="lastNameLabel"
+           GridPane.columnIndex="0"
+           GridPane.rowIndex="2"/>
+
+    <TextField
+            fx:id="lastNameField"
+            GridPane.columnIndex="1"
+            GridPane.rowIndex="2"/>
+
+
+</GridPane>

@@ -1,5 +1,7 @@
 package sample;
 
+import com.guigarage.flatterfx.FlatterFX;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,11 +10,16 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    static final String welcome = "Welcome";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        FlatterFX.style();
+
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
+        primaryStage.setTitle("Customer Data Management");
+        Scene scene = new Scene(root, 600, 550);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
