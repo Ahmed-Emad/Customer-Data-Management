@@ -1,8 +1,9 @@
-package sample;
+package main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Font;
 
 public class Controller {
@@ -17,6 +18,8 @@ public class Controller {
     private TextField firstNameField;
     @FXML
     private TextField lastNameField;
+    @FXML
+    private ToggleGroup toggleGroup;
 
     public void initialize() {
         Font mainFont = Font.loadFont("file:src/main/resources/fonts/Action_Man_Bold.ttf", 35);
