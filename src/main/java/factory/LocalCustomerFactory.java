@@ -22,12 +22,12 @@ public class LocalCustomerFactory implements CustomerFactory {
     }
 
     @Override
-    public Address getAddress() throws Exception {
+    public Address getAddress() {
         return new LocalAddress();
     }
 
     @Override
-    public Credit getCreditCard() throws Exception {
+    public Credit getCreditCard() {
         return new LocalCredit();
     }
 

@@ -57,7 +57,11 @@ public class RemoteAccount extends UnicastRemoteObject implements Account {
                     + "VALUES('" + firstName + "', '" + lastName + "')");
             ResultSet rs = statement.executeQuery("SELECT * FROM ACCOUNT WHERE "
                     + "first_name='" + firstName + "' AND last_name='" + lastName + "'");
-            return rs.getInt("id");
+            int id = 0;
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+            return id;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return -1;
