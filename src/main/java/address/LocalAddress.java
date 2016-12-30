@@ -1,14 +1,14 @@
 package address;
 
+/**
+ * Created by ahmadbarakat on 364 / 29 / 16.
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Pattern;
-
-/**
- * Created by ahmadbarakat on 364 / 29 / 16.
- */
 
 public class LocalAddress implements Address {
 
