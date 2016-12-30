@@ -4,7 +4,6 @@ import com.guigarage.flatterfx.FlatterFX;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,6 +20,11 @@ public class Main extends Application {
     static final String welcome = "Welcome";
 
     public static void main(String[] args) {
+        initDatabase();
+        launch(args);
+    }
+
+    private static void initDatabase() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:customer_data_management.db");
@@ -45,8 +49,6 @@ public class Main extends Application {
                 System.err.println(e);
             }
         }
-
-        launch(args);
     }
 
     @Override

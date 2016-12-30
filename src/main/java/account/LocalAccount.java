@@ -1,16 +1,20 @@
 package account;
 
+/**
+ * Created by ahmadbarakat on 364 / 29 / 16.
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-/**
- * Created by ahmadbarakat on 364 / 29 / 16.
- */
+import java.util.regex.Pattern;
 
 public class LocalAccount implements Account {
+
+    private static final String NAMES_REGEX = "[a-zA-Z]+";
+    private static Pattern namesPattern;
 
     private String firstName;
     private String lastName;
@@ -18,6 +22,7 @@ public class LocalAccount implements Account {
     private Connection connection;
 
     public LocalAccount() {
+        namesPattern = Pattern.compile(NAMES_REGEX);
     }
 
     @Override
@@ -42,7 +47,7 @@ public class LocalAccount implements Account {
 
     @Override
     public boolean isValid() {
-        return true;
+        return namesPattern.matcher(firstName).matches() && namesPattern.matcher(lastName).matches();
     }
 
     @Override
@@ -56,8 +61,8 @@ public class LocalAccount implements Account {
             ResultSet rs = statement.executeQuery("SELECT * FROM ACCOUNT WHERE "
                     + "first_name='" + firstName + "' AND last_name='" + lastName + "'");
             int id = 0;
-            while(rs.next()) {
-                id = rs.getInt("id");;
+            while (rs.next()) {
+                id = rs.getInt("id");
             }
             return id;
         } catch (SQLException e) {

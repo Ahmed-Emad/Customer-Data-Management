@@ -4,12 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 
 /**
  * Created by ahmadbarakat on 364 / 29 / 16.
  */
 
 public class LocalAddress implements Address {
+
+    private static final String CITY_STATE_REGEX = "[a-zA-Z]+";
+    private static final String ADDRESS_REGEX = "\\d{1,4}\\s([a-zA-Z]+(\\s[a-zA-Z]+)*)(,\\s([a-zA-Z]+(\\s[a-zA-Z]+)*))*";
+    private static Pattern cityStatePattern;
+    private static Pattern addressPattern;
 
     private String address;
     private String city;
@@ -18,6 +24,8 @@ public class LocalAddress implements Address {
     private Connection connection;
 
     public LocalAddress() {
+        cityStatePattern = Pattern.compile(CITY_STATE_REGEX);
+        addressPattern = Pattern.compile(ADDRESS_REGEX);
     }
 
     @Override
@@ -52,7 +60,8 @@ public class LocalAddress implements Address {
 
     @Override
     public boolean isValid() {
-        return true;
+        return cityStatePattern.matcher(city).matches() && cityStatePattern.matcher(state).matches()
+                && addressPattern.matcher(address).matches();
     }
 
     @Override

@@ -1,5 +1,9 @@
 package main;
 
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 import account.Account;
 import address.Address;
 import credit.Credit;
@@ -12,10 +16,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class Controller {
 
+    @FXML
+    public Label accountLabel;
+    @FXML
+    public Label addressLabelM;
+    @FXML
+    public Label creditLabel;
     @FXML
     private Label welcomeLabel;
     @FXML
@@ -24,12 +35,6 @@ public class Controller {
     private RadioButton remoteRadio;
     @FXML
     private RadioButton localRadio;
-    @FXML
-    public Label accountLabel;
-    @FXML
-    public Label addressLabelM;
-    @FXML
-    public Label creditLabel;
     @FXML
     private Label firstNameLabel;
     @FXML
@@ -71,7 +76,7 @@ public class Controller {
         Font mainFont_xl = Font.loadFont("file:src/main/resources/fonts/Action_Man_Bold.ttf", 36);
         Font mainFont_l = Font.loadFont("file:src/main/resources/fonts/Action_Man_Bold.ttf", 30);
         Font mainFont_s = Font.loadFont("file:src/main/resources/fonts/Action_Man_Bold.ttf", 26);
-        Font secondaryFont = Font.loadFont("file:src/main/resources/fonts/GoodDog.otf", 30);
+        Font secondaryFont = Font.loadFont("file:src/main/resources/fonts/GoodDog.otf", 34);
         Font minorFont = Font.loadFont("file:src/main/resources/fonts/KomikaTitle-Paint.ttf", 16);
 
         welcomeLabel.setFont(mainFont_xl);
@@ -109,7 +114,17 @@ public class Controller {
             CustomerFactory customerFactory = null;
             String msg = "";
             if (remoteRadio.isSelected()) {
-                customerFactory = CustomerUtil.getCustFactory("remote");
+                try {
+                    Registry registry = LocateRegistry.getRegistry("localhost", 7575);
+                    String[] names = registry.list();
+                    customerFactory = CustomerUtil.getCustFactory("remote");
+                } catch (Exception e) {
+                    System.err.println(e);
+                    customerFactory = CustomerUtil.getCustFactory("local");
+                    remoteRadio.setSelected(false);
+                    localRadio.setSelected(true);
+                    msg += "Remote not Available, working locally\n";
+                }
             }
             if (localRadio.isSelected()) {
                 customerFactory = CustomerUtil.getCustFactory("local");
@@ -117,30 +132,29 @@ public class Controller {
             Account account = customerFactory.getAccount();
             account.setFirstName(firstNameField.getText());
             account.setLastName(lastNameField.getText());
-            if (account.isValid()) {
+            Address address = customerFactory.getAddress();
+            address.setAddress(addressField.getText());
+            address.setCity(cityField.getText());
+            address.setState(stateField.getText());
+            Credit credit = customerFactory.getCreditCard();
+            credit.setType(typeField.getText());
+            credit.setNumber(numberField.getText());
+            credit.setExpDate(expField.getText());
+            if (account.isValid() && address.isValid() && credit.isValid()) {
+                logLabel.setTextFill(Paint.valueOf("limegreen"));
                 int accountId = account.save();
                 System.out.println(accountId);
-                Address address = customerFactory.getAddress();
-                address.setAddress(addressField.getText());
-                address.setCity(cityField.getText());
-                address.setState(stateField.getText());
-                if (address.isValid()) {
-                    address.save(accountId);
-                    Credit credit = customerFactory.getCreditCard();
-                    credit.setType(typeField.getText());
-                    credit.setNumber(numberField.getText());
-                    credit.setExpDate(expField.getText());
-                    if (credit.isValid()) {
-                        credit.save(accountId);
-                        msg = String.format("Saved: %s, %s", account.getFirstName(), account.getLastName());
-                    } else {
-                        msg = "Invalid Credit Card";
-                    }
-                } else {
-                    msg = "Invalid Address";
-                }
+                address.save(accountId);
+                credit.save(accountId);
+                msg = String.format("Saved: %s %s", account.getFirstName(), account.getLastName());
             } else {
-                msg = "Invalid Account";
+                logLabel.setTextFill(Paint.valueOf("red"));
+                if (!account.isValid())
+                    msg += "Invalid Account";
+                if (!address.isValid())
+                    msg += msg.length() > 0 ? "  |  Invalid Address" : "Invalid Address";
+                if (!credit.isValid())
+                    msg += msg.length() > 0 ? "  |  Invalid Credit Card" : "Invalid Credit Card";
             }
             logLabel.setText(msg);
             welcomeLabel.requestFocus();

@@ -13,6 +13,7 @@
           GridPane.columnIndex="0"
           GridPane.columnSpan="6">
         <Label text="Welcome !!!"
+               textFill="dodgerblue"
                fx:id="welcomeLabel"/>
     </VBox>
 
@@ -41,7 +42,7 @@
           GridPane.columnIndex="0"
           GridPane.columnSpan="2">
         <Label text="Account"
-               textFill="red"
+               textFill="deepskyblue"
                fx:id="accountLabel"/>
     </VBox>
 
@@ -50,7 +51,7 @@
           GridPane.columnIndex="2"
           GridPane.columnSpan="2">
         <Label text="Address"
-               textFill="red"
+               textFill="deepskyblue"
                fx:id="addressLabelM"/>
     </VBox>
 
@@ -59,7 +60,7 @@
           GridPane.columnIndex="4"
           GridPane.columnSpan="2">
         <Label text="Credit Card"
-               textFill="red"
+               textFill="deepskyblue"
                fx:id="creditLabel"/>
     </VBox>
 
@@ -84,33 +85,6 @@
             GridPane.rowIndex="4"
             GridPane.columnIndex="1"/>
 
-
-    <Label text="Type:"
-           fx:id="typeLabel"
-           GridPane.rowIndex="3"
-           GridPane.columnIndex="4"/>
-    <TextField
-            fx:id="typeField"
-            GridPane.rowIndex="3"
-            GridPane.columnIndex="5"/>
-
-    <Label text="Number:"
-           fx:id="numberLabel"
-           GridPane.rowIndex="4"
-           GridPane.columnIndex="4"/>
-    <TextField
-            fx:id="numberField"
-            GridPane.rowIndex="4"
-            GridPane.columnIndex="5"/>
-
-    <Label text="Exp Date:"
-           fx:id="expLabel"
-           GridPane.rowIndex="5"
-           GridPane.columnIndex="4"/>
-    <TextField
-            fx:id="expField"
-            GridPane.rowIndex="5"
-            GridPane.columnIndex="5"/>
 
     <Label text="Address:"
            fx:id="addressLabel"
@@ -140,10 +114,38 @@
             GridPane.columnIndex="3"/>
 
 
+    <Label text="Type:"
+           fx:id="typeLabel"
+           GridPane.rowIndex="3"
+           GridPane.columnIndex="4"/>
+    <TextField
+            fx:id="typeField"
+            GridPane.rowIndex="3"
+            GridPane.columnIndex="5"/>
+
+    <Label text="Number:"
+           fx:id="numberLabel"
+           GridPane.rowIndex="4"
+           GridPane.columnIndex="4"/>
+    <TextField
+            fx:id="numberField"
+            GridPane.rowIndex="4"
+            GridPane.columnIndex="5"/>
+
+    <Label text="Exp Date:"
+           fx:id="expLabel"
+           GridPane.rowIndex="5"
+           GridPane.columnIndex="4"/>
+    <TextField
+            fx:id="expField"
+            GridPane.rowIndex="5"
+            GridPane.columnIndex="5"/>
+
+
     <VBox alignment="CENTER"
           GridPane.rowIndex="6"
-          GridPane.columnIndex="0"
-          GridPane.columnSpan="6">
+          GridPane.columnIndex="1"
+          GridPane.columnSpan="4">
         <Button text="Save"
                 onAction="#handleSaveButton"
                 fx:id="saveButton"/>

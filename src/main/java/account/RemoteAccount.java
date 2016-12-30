@@ -11,8 +11,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 
 public class RemoteAccount extends UnicastRemoteObject implements Account {
+
+    private static final String NAMES_REGEX = "[a-zA-Z]+";
+    private static Pattern namesPattern;
 
     private String firstName;
     private String lastName;
@@ -20,6 +24,7 @@ public class RemoteAccount extends UnicastRemoteObject implements Account {
     private Connection connection;
 
     public RemoteAccount() throws RemoteException {
+        namesPattern = Pattern.compile(NAMES_REGEX);
     }
 
     @Override
@@ -44,7 +49,7 @@ public class RemoteAccount extends UnicastRemoteObject implements Account {
 
     @Override
     public boolean isValid() throws RemoteException {
-        return true;
+        return namesPattern.matcher(firstName).matches() && namesPattern.matcher(lastName).matches();
     }
 
     @Override
