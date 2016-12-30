@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class RemoteCredit extends UnicastRemoteObject implements Credit {
 
-    private static final String TYPE_REGEX = "[a-zA-Z]+";
+    private static final String TYPE_REGEX = "[a-zA-Z]+(\\s[a-zA-Z]+)*";
     private static final String NUM_REGEX = "\\d{16}";
     private static final String EXP_REGEX = "\\d\\d/\\d\\d";
     private static Pattern typePattern;

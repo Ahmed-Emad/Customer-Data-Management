@@ -6,7 +6,7 @@ Customer Data Management
 - Maven
 
 
-## Brain build script:
+## Build Script:
 
 ### Dependencies:
 
@@ -19,7 +19,24 @@ Customer Data Management
 - macOS: brew cask install java
 
 ### Run from terminal:
-- ./build.sh
+#### ./build.sh
+
+
+## Input Validations:
+
+#### Account
+- First Name: All characters. (Ahmed)
+- Last Name: All characters. (Barakat)
+
+#### Address
+- Address: 1 to 4 digits followed by characters or spaces. (4 Ismail Elfangari, Camp Ceazar)
+- City: All characters or spaces. (Alexandria)
+- State: All characters or spaces. (Alexandria Governament)
+
+#### Credit Card
+- Type: All characters or spaces. (Visa)
+- Number: 16 digit. (1234123412341234)
+- Exp Date: Two digits then '/' then another two digits. (11/18)
 
 
 ##Screen shots

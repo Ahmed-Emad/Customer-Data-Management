@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class LocalAddress implements Address {
 
-    private static final String CITY_STATE_REGEX = "[a-zA-Z]+";
+    private static final String CITY_STATE_REGEX = "[a-zA-Z]+(\\s[a-zA-Z]+)*";
     private static final String ADDRESS_REGEX = "\\d{1,4}\\s([a-zA-Z]+(\\s[a-zA-Z]+)*)(,\\s([a-zA-Z]+(\\s[a-zA-Z]+)*))*";
     private static Pattern cityStatePattern;
     private static Pattern addressPattern;
