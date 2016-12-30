@@ -20,7 +20,7 @@ public class Server {
             Naming.rebind("rmi://localhost:7575/customer-data-management/address", remoteAddress);
             RemoteCredit remoteCredit = new RemoteCredit();
             Naming.rebind("rmi://localhost:7575/customer-data-management/credit", remoteCredit);
-            System.out.println("(y)");
+            System.out.println("Server Running Successfully");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

@@ -66,7 +66,6 @@ public class Main extends Application {
         primaryStage.setY(bounds.getMinY());
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
-        System.out.println(bounds.getWidth() + ", " + bounds.getHeight());
         Scene scene = new Scene(root, bounds.getWidth(), bounds.getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();
